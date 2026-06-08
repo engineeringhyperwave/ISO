@@ -62,11 +62,12 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
 .welcome-banner{background:#fff4ee;border-left:4px solid #ff6200;padding:12px 15px;border-radius:6px;margin-bottom:15px}
 .welcome-banner strong{color:#ff6200;font-size:16px}
 .welcome-banner p{font-size:13px;color:#666;margin-top:3px}
-.time-btns{display:flex;gap:10px;margin-top:15px}
+.time-btns{display:flex;gap:10px;margin-top:10px;margin-bottom:15px}
 .btn-in{background:#28a745;flex:1;padding:15px;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn-out{background:#dc3545;flex:1;padding:15px;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn-in:active{background:#218838}
 .btn-out:active{background:#c82333}
+.btn-in:disabled, .btn-out:disabled{background:#ccc;cursor:not-allowed}
 .success-wrap{text-align:center;padding:30px 10px}
 .success-icon{font-size:70px;margin-bottom:15px}
 .success-wrap h2{color:#28a745;font-size:22px;margin-bottom:10px}
@@ -143,13 +144,13 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
       <input type="text" id="fIC" disabled>
 
       <label>Contact No. <span>*</span></label>
-      <input type="tel" id="fContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
+      <input type="tel" id="fContact" placeholder="e.g. 0123456789" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Name <span>*</span></label>
       <input type="text" id="fEmergencyName" placeholder="Emergency Contact Name" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Contact No. <span>*</span></label>
-      <input type="tel" id="fEmergencyContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
+      <input type="tel" id="fEmergencyContact" placeholder="e.g. 0123456789" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Visitor Of / Host <span>*</span></label>
       <input type="text" id="fHost" placeholder="Name of person you are visiting" oninput="removeRedBorder(this)">
@@ -255,10 +256,17 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
   <div id="stepReturning" class="hidden">
     <div class="card">
       <div class="doc-ref">HYP-HRA-F07 | Rev.: 00</div>
+      
       <div class="welcome-banner">
         <strong>Welcome back!</strong>
         <p>Your previous details have been pre-filled. Please review and update if needed.</p>
       </div>
+
+      <div class="time-btns">
+        <button class="btn-in" id="btnTimeInTop" onclick="submitReturn('in')">🟢 Time In</button>
+        <button class="btn-out" id="btnTimeOutTop" onclick="submitReturn('out')">🔴 Time Out</button>
+      </div>
+
       <div class="section-tag">Visitor's Registration Docket</div>
 
       <label>Date</label>
@@ -274,13 +282,13 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
       <input type="text" id="rIC" disabled>
 
       <label>Contact No. <span>*</span></label>
-      <input type="tel" id="rContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
+      <input type="tel" id="rContact" placeholder="e.g. 0123456789" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Name <span>*</span></label>
       <input type="text" id="rEmergencyName" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Contact No. <span>*</span></label>
-      <input type="tel" id="rEmergencyContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
+      <input type="tel" id="rEmergencyContact" placeholder="e.g. 0123456789" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Visitor Of / Host <span>*</span></label>
       <input type="text" id="rHost" oninput="removeRedBorder(this)">
@@ -338,14 +346,7 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
         <input type="text" id="rprop3sn" placeholder="ID / SN">
       </div>
 
-      <hr>
-      <div class="section-tag">Time In / Out</div>
-      <div class="time-btns">
-        <button class="btn-in" id="btnTimeIn" onclick="submitReturn('in')">🟢 Time In</button>
-        <button class="btn-out" id="btnTimeOut" onclick="submitReturn('out')">🔴 Time Out</button>
-      </div>
-
-      <hr>
+<hr>
       <div class="section-tag">Rules & Regulations</div>
       <div class="rules-box">
         <h4>General Rules</h4>
@@ -384,6 +385,14 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
           4-G, Jalan Kenari 12A, Bandar Puchong Jaya, 47100 Puchong, Selangor
         </div>
       </div>
+
+      <hr>
+      <div class="section-tag">Time In / Out</div>
+      <div class="time-btns">
+        <button class="btn-in" id="btnTimeInBottom" onclick="submitReturn('in')">🟢 Time In</button>
+        <button class="btn-out" id="btnTimeOutBottom" onclick="submitReturn('out')">🔴 Time Out</button>
+      </div>
+
       <p class="error-msg" id="returnError">Please fill in all required fields.</p>
     </div>
   </div>
@@ -396,10 +405,8 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
       <button class="btn" style="margin-top:25px" onclick="resetAll()">Done</button>
     </div>
   </div>
-
-</div>
-
 <script>
+// 🔥 确保此处的 SCRIPT_URL 与你的部署网址相符
 const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwUYuAcvj334ct2sN0GeePrUaLf12vwPWYJw4XtZzdN1nw_er2u1aRX-faIMlrpjEgM_A/exec";
 let currentIC="";
 
@@ -420,7 +427,6 @@ function show(id){
 function cleanIC(v){return v.replace(/[^a-zA-Z0-9]/g,"").toUpperCase();}
 function getToday(){return new Date().toLocaleDateString("en-GB");}
 
-// 当用户在红框里打字时，移除红框
 function removeRedBorder(inputElement) {
   if (inputElement.classList.contains("invalid-field")) {
     inputElement.classList.remove("invalid-field");
@@ -479,7 +485,7 @@ function handleRadio(name,detailId,lblNo,lblYes){
   } else {
     el.classList.add("hidden");
     el.value="";
-    el.classList.remove("invalid-field"); // 如果隐藏了，顺便移除红框
+    el.classList.remove("invalid-field");
   }
   document.getElementById(lblNo).classList.toggle("selected",val==="No");
   document.getElementById(lblYes).classList.toggle("selected",val==="Yes");
@@ -500,9 +506,17 @@ function fillReturning(d){
   document.getElementById("rName").value=d.name||"";
   document.getElementById("rCompany").value=d.company||"";
   document.getElementById("rIC").value=currentIC;
-  document.getElementById("rContact").value=d.contact||"";
+  
+  // 💡 前端小优化：如果抓回来的手机号已经带有单引号，强行剥离掉显示，确保用户体验
+  let rawContact = String(d.contact || "");
+  if(rawContact.startsWith("'")) rawContact = rawContact.substring(1);
+  document.getElementById("rContact").value = rawContact;
+
+  let rawEmergContact = String(d.emergencyContact || "");
+  if(rawEmergContact.startsWith("'")) rawEmergContact = rawEmergContact.substring(1);
+  document.getElementById("rEmergencyContact").value = rawEmergContact;
+
   document.getElementById("rEmergencyName").value=d.emergencyName||"";
-  document.getElementById("rEmergencyContact").value=d.emergencyContact||"";
   document.getElementById("rHost").value=d.host||"";
   document.getElementById("rDepartment").value=d.department||"";
   setRadio("rpandemic",d.pandemic||"No","lbl-rpandemic-no","lbl-rpandemic-yes","rpandemicDetail",d.pandemicDetails);
@@ -513,12 +527,10 @@ function fillReturning(d){
 
 function getRadio(name){const r=document.querySelector(`input[name="${name}"]:checked`);return r?r.value:"No";}
 
-// 🔥 核心升级：验证未填项并精准上红框
 function validateFormAndHighlight(prefix) {
   let isValid = true;
   const isNew = prefix === "f";
   
-  // 1. 检查基础必填文本框
   const requiredIds = [prefix+"Name", prefix+"Company", prefix+"Contact", prefix+"EmergencyName", prefix+"EmergencyContact", prefix+"Host", prefix+"Department"];
   
   requiredIds.forEach(id => {
@@ -531,7 +543,6 @@ function validateFormAndHighlight(prefix) {
     }
   });
 
-  // 2. 检查健康声明（如果选了 Yes，对应的输入框就是必填）
   const healthChecks = isNew ? ["pandemic", "medication", "allergy", "smoke"] : ["rpandemic", "rmedication", "rallergy", "rsmoke"];
   healthChecks.forEach(name => {
     const radioVal = getRadio(name);
@@ -581,7 +592,6 @@ function buildPayload(prefix,timeIn){
 function submitNew(){
   if(!validateFormAndHighlight("f")){
     document.getElementById("formError").style.display="block";
-    // 自动平滑滚动到第一个错误的框
     const firstError = document.querySelector(".invalid-field");
     if(firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
@@ -621,10 +631,9 @@ function submitReturn(action){
   }
   document.getElementById("returnError").style.display="none";
   
-  const btnIn = document.getElementById("btnTimeIn");
-  const btnOut = document.getElementById("btnTimeOut");
-  btnIn.disabled = true;
-  btnOut.disabled = true;
+  // 💡 将四个上下打卡按钮同时禁用防爆点
+  const btns = ["btnTimeInTop", "btnTimeOutTop", "btnTimeInBottom", "btnTimeOutBottom"];
+  btns.forEach(id => document.getElementById(id).disabled = true);
 
   fetch(SCRIPT_URL,{
     method:"POST",
@@ -634,15 +643,13 @@ function submitReturn(action){
   })
   .then(r=>r.json())
   .then(()=>{
-    btnIn.disabled = false;
-    btnOut.disabled = false;
+    btns.forEach(id => document.getElementById(id).disabled = false);
     const msg=action==="in"?"Time In recorded. Welcome back!":"Time Out recorded. Thank you for visiting!";
     document.getElementById("successMsg").textContent=msg;
     show("stepSuccess");
   })
   .catch(()=>{
-    btnIn.disabled = false;
-    btnOut.disabled = false;
+    btns.forEach(id => document.getElementById(id).disabled = false);
     alert("Submission error. Please try again.");
   });
 }
@@ -654,7 +661,6 @@ function resetAll(){
   document.getElementById("checkPDF").checked=false;
   document.getElementById("proceedBtn").disabled=true;
   
-  // 清除所有红框样式
   document.querySelectorAll(".invalid-field").forEach(el => el.classList.remove("invalid-field"));
   document.getElementById("formError").style.display="none";
   document.getElementById("returnError").style.display="none";
