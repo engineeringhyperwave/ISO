@@ -101,15 +101,12 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
       <h2>Watch & Read Before Proceeding</h2>
       <p class="subtitle">Please complete both items below before filling in the registration form.</p>
       
-      <div class="video-wrap">
-        <iframe src="https://drive.google.com/file/d/1aQ2us7h1pOQtzMSeDJrWjfxP_0N5W0RH/preview" 
-                allow="autoplay; fullscreen" 
-                allowfullscreen="true" 
-                webkitallowfullscreen="true" 
-                mozallowfullscreen="true" 
-                msallowfullscreen="true"></iframe>
+      <div class="video-wrap" id="videoContainer">
+        <iframe id="videoFrame" 
+                src="https://www.youtube.com/embed/BQs-2V0UZnU?playsinline=1&rel=0" 
+                allow="autoplay; fullscreen; accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
       </div>
-      
       <div class="pdf-btns">
         <a class="pdf-btn" href="safety-briefing.pdf" target="_blank">📄 Open PDF</a>
         <a class="pdf-btn" href="safety-briefing.pdf" download="safety-briefing.pdf" onclick="handleDownloadFallback(event, this.href)">⬇️ Download PDF</a>
