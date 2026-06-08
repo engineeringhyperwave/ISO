@@ -17,21 +17,27 @@ h2{font-size:18px;color:#000;margin-bottom:5px}
 .section-tag{font-size:11px;color:#ff6200;font-weight:bold;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px}
 label{font-size:14px;color:#444;display:block;margin-bottom:5px;margin-top:14px}
 label span{color:#ff6200}
-input[type=text],input[type=tel],input[type=email],textarea{width:100%;padding:12px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;-webkit-appearance:none;appearance:none;background:#fff}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;padding:12px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;-webkit-appearance:none;appearance:none;background:#fff;transition: border-color 0.2s;}
 input:focus,textarea:focus{border-color:#ff6200;outline:none}
 input:disabled{background:#f0f0f0;color:#888}
 textarea{resize:none;height:70px}
+
+/* 🚨 必填项未填时的红色警告状态 */
+input.invalid-field, textarea.invalid-field {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
 .btn{width:100%;padding:15px;background:#ff6200;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin-top:15px;font-weight:bold;-webkit-tap-highlight-color:transparent}
 .btn:active{background:#ea5a00}
 .btn:disabled{background:#ccc;cursor:not-allowed}
 .hidden{display:none}
-.error-msg{color:#dc3545;font-size:13px;margin-top:8px;display:none}
+.error-msg{color:#dc3545;font-size:14px;margin-top:12px;display:none;font-weight:bold;background:#fff5f5;padding:10px;border-radius:6px;border:1px solid #ffcccc}
 .ic-hint{font-size:12px;color:#999;margin-top:5px}
 .checkbox-wrap{background:#fff4ee;border:1.5px solid #ffd4b3;border-radius:8px;padding:14px;margin-top:10px;display:flex;align-items:flex-start;gap:12px}
 .checkbox-wrap input[type=checkbox]{width:22px;height:22px;flex-shrink:0;margin-top:2px;accent-color:#ff6200}
 .checkbox-wrap label{font-size:14px;color:#333;margin:0}
 
-/* 🎬 针对 9:16 竖屏视频优化播放器比例（从原本的 56.25% 拓宽到 100% 并在内部限制高度或调整比例） */
 .video-wrap{position:relative;width:100%;padding-bottom:120%;height:0;margin-bottom:15px;border-radius:10px;overflow:hidden;background:#000}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 
@@ -128,28 +134,28 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
       <input type="text" id="fDate" disabled>
 
       <label>Visitor's Full Name <span>*</span></label>
-      <input type="text" id="fName" placeholder="Full Name">
+      <input type="text" id="fName" placeholder="Full Name" oninput="removeRedBorder(this)">
 
       <label>Company <span>*</span></label>
-      <input type="text" id="fCompany" placeholder="Company Name">
+      <input type="text" id="fCompany" placeholder="Company Name" oninput="removeRedBorder(this)">
 
       <label>NRIC / Passport No.</label>
       <input type="text" id="fIC" disabled>
 
       <label>Contact No. <span>*</span></label>
-      <input type="tel" id="fContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel">
+      <input type="tel" id="fContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Name <span>*</span></label>
-      <input type="text" id="fEmergencyName" placeholder="Emergency Contact Name">
+      <input type="text" id="fEmergencyName" placeholder="Emergency Contact Name" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Contact No. <span>*</span></label>
-      <input type="tel" id="fEmergencyContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel">
+      <input type="tel" id="fEmergencyContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Visitor Of / Host <span>*</span></label>
-      <input type="text" id="fHost" placeholder="Name of person you are visiting">
+      <input type="text" id="fHost" placeholder="Name of person you are visiting" oninput="removeRedBorder(this)">
 
       <label>Department <span>*</span></label>
-      <input type="text" id="fDepartment" placeholder="Department">
+      <input type="text" id="fDepartment" placeholder="Department" oninput="removeRedBorder(this)">
 
       <hr>
       <div class="section-tag">Health Declaration</div>
@@ -159,28 +165,28 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
         <label class="radio-label selected" id="lbl-pandemic-no"><input type="radio" name="pandemic" value="No" checked onchange="handleRadio('pandemic','pandemicDetail','lbl-pandemic-no','lbl-pandemic-yes')"> No</label>
         <label class="radio-label" id="lbl-pandemic-yes"><input type="radio" name="pandemic" value="Yes" onchange="handleRadio('pandemic','pandemicDetail','lbl-pandemic-no','lbl-pandemic-yes')"> Yes</label>
       </div>
-      <textarea id="pandemicDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="pandemicDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <label style="margin-top:16px">Are you under any medication that may affect your focus or alertness? <span>*</span></label>
       <div class="radio-group">
         <label class="radio-label selected" id="lbl-medication-no"><input type="radio" name="medication" value="No" checked onchange="handleRadio('medication','medicationDetail','lbl-medication-no','lbl-medication-yes')"> No</label>
         <label class="radio-label" id="lbl-medication-yes"><input type="radio" name="medication" value="Yes" onchange="handleRadio('medication','medicationDetail','lbl-medication-no','lbl-medication-yes')"> Yes</label>
       </div>
-      <textarea id="medicationDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="medicationDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <label style="margin-top:16px">Are you suffering from any allergy, e.g. sight, sound, smell, exposure, etc.? <span>*</span></label>
       <div class="radio-group">
         <label class="radio-label selected" id="lbl-allergy-no"><input type="radio" name="allergy" value="No" checked onchange="handleRadio('allergy','allergyDetail','lbl-allergy-no','lbl-allergy-yes')"> No</label>
         <label class="radio-label" id="lbl-allergy-yes"><input type="radio" name="allergy" value="Yes" onchange="handleRadio('allergy','allergyDetail','lbl-allergy-no','lbl-allergy-yes')"> Yes</label>
       </div>
-      <textarea id="allergyDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="allergyDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <label style="margin-top:16px">Do you smoke? If yes, please deposit your lighter at the guard station. <span>*</span></label>
       <div class="radio-group">
         <label class="radio-label selected" id="lbl-smoke-no"><input type="radio" name="smoke" value="No" checked onchange="handleRadio('smoke','smokeDetail','lbl-smoke-no','lbl-smoke-yes')"> No</label>
         <label class="radio-label" id="lbl-smoke-yes"><input type="radio" name="smoke" value="Yes" onchange="handleRadio('smoke','smokeDetail','lbl-smoke-no','lbl-smoke-yes')"> Yes</label>
       </div>
-      <textarea id="smokeDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="smokeDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <hr>
       <div class="section-tag">Property Declaration <span style="font-weight:normal;color:#999;text-transform:none">(Optional)</span></div>
@@ -259,28 +265,28 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
       <input type="text" id="rDate" disabled>
 
       <label>Visitor's Full Name <span>*</span></label>
-      <input type="text" id="rName">
+      <input type="text" id="rName" oninput="removeRedBorder(this)">
 
       <label>Company <span>*</span></label>
-      <input type="text" id="rCompany">
+      <input type="text" id="rCompany" oninput="removeRedBorder(this)">
 
       <label>NRIC / Passport No.</label>
       <input type="text" id="rIC" disabled>
 
       <label>Contact No. <span>*</span></label>
-      <input type="tel" id="rContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel">
+      <input type="tel" id="rContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Name <span>*</span></label>
-      <input type="text" id="rEmergencyName">
+      <input type="text" id="rEmergencyName" oninput="removeRedBorder(this)">
 
       <label>Contact During Emergency – Contact No. <span>*</span></label>
-      <input type="tel" id="rEmergencyContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel">
+      <input type="tel" id="rEmergencyContact" placeholder="+60123456789 / 0881234567 / +6512345678" inputmode="tel" oninput="removeRedBorder(this)">
 
       <label>Visitor Of / Host <span>*</span></label>
-      <input type="text" id="rHost">
+      <input type="text" id="rHost" oninput="removeRedBorder(this)">
 
       <label>Department <span>*</span></label>
-      <input type="text" id="rDepartment">
+      <input type="text" id="rDepartment" oninput="removeRedBorder(this)">
 
       <hr>
       <div class="section-tag">Health Declaration</div>
@@ -290,28 +296,28 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
         <label class="radio-label" id="lbl-rpandemic-no"><input type="radio" name="rpandemic" value="No" onchange="handleRadio('rpandemic','rpandemicDetail','lbl-rpandemic-no','lbl-rpandemic-yes')"> No</label>
         <label class="radio-label" id="lbl-rpandemic-yes"><input type="radio" name="rpandemic" value="Yes" onchange="handleRadio('rpandemic','rpandemicDetail','lbl-rpandemic-no','lbl-rpandemic-yes')"> Yes</label>
       </div>
-      <textarea id="rpandemicDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="rpandemicDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <label style="margin-top:16px">Are you under any medication that may affect your focus or alertness? <span>*</span></label>
       <div class="radio-group">
         <label class="radio-label" id="lbl-rmedication-no"><input type="radio" name="rmedication" value="No" onchange="handleRadio('rmedication','rmedicationDetail','lbl-rmedication-no','lbl-rmedication-yes')"> No</label>
         <label class="radio-label" id="lbl-rmedication-yes"><input type="radio" name="rmedication" value="Yes" onchange="handleRadio('rmedication','rmedicationDetail','lbl-rmedication-no','lbl-rmedication-yes')"> Yes</label>
       </div>
-      <textarea id="rmedicationDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="rmedicationDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <label style="margin-top:16px">Are you suffering from any allergy, e.g. sight, sound, smell, exposure, etc.? <span>*</span></label>
       <div class="radio-group">
         <label class="radio-label" id="lbl-rallergy-no"><input type="radio" name="rallergy" value="No" onchange="handleRadio('rallergy','rallergyDetail','lbl-rallergy-no','lbl-rallergy-yes')"> No</label>
         <label class="radio-label" id="lbl-rallergy-yes"><input type="radio" name="rallergy" value="Yes" onchange="handleRadio('rallergy','rallergyDetail','lbl-rallergy-no','lbl-rallergy-yes')"> Yes</label>
       </div>
-      <textarea id="rallergyDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="rallergyDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <label style="margin-top:16px">Do you smoke? If yes, please deposit your lighter at the guard station. <span>*</span></label>
       <div class="radio-group">
         <label class="radio-label" id="lbl-rsmoke-no"><input type="radio" name="rsmoke" value="No" onchange="handleRadio('rsmoke','rsmokeDetail','lbl-rsmoke-no','lbl-rsmoke-yes')"> No</label>
         <label class="radio-label" id="lbl-rsmoke-yes"><input type="radio" name="rsmoke" value="Yes" onchange="handleRadio('rsmoke','rsmokeDetail','lbl-rsmoke-no','lbl-rsmoke-yes')"> Yes</label>
       </div>
-      <textarea id="rsmokeDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px"></textarea>
+      <textarea id="rsmokeDetail" placeholder="Please elaborate..." class="hidden" style="margin-top:8px" oninput="removeRedBorder(this)"></textarea>
 
       <hr>
       <div class="section-tag">Property Declaration <span style="font-weight:normal;color:#999;text-transform:none">(Optional)</span></div>
@@ -397,9 +403,7 @@ hr{border:none;border-top:1px solid #eee;margin:18px 0}
 const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwUYuAcvj334ct2sN0GeePrUaLf12vwPWYJw4XtZzdN1nw_er2u1aRX-faIMlrpjEgM_A/exec";
 let currentIC="";
 
-// 💡 优雅降级处理 PDF 跨域下载失败问题
 function handleDownloadFallback(event, url) {
-  // 如果是跨域或者本地运行，通常会直接变成打开，这里给出友好提示
   setTimeout(function() {
     alert("💡 If the download doesn't start automatically:\nPlease click 'Open PDF' instead, then tap the download icon (⬇️) at the top right of the browser window.");
   }, 1000);
@@ -415,6 +419,13 @@ function show(id){
 
 function cleanIC(v){return v.replace(/[^a-zA-Z0-9]/g,"").toUpperCase();}
 function getToday(){return new Date().toLocaleDateString("en-GB");}
+
+// 当用户在红框里打字时，移除红框
+function removeRedBorder(inputElement) {
+  if (inputElement.classList.contains("invalid-field")) {
+    inputElement.classList.remove("invalid-field");
+  }
+}
 
 function checkIC(){
   const raw=document.getElementById("icInput").value.trim();
@@ -463,8 +474,13 @@ function showForm(){show("stepForm");}
 function handleRadio(name,detailId,lblNo,lblYes){
   const val=document.querySelector(`input[name="${name}"]:checked`).value;
   const el=document.getElementById(detailId);
-  if(val==="Yes"){el.classList.remove("hidden");}
-  else{el.classList.add("hidden");el.value="";}
+  if(val==="Yes"){
+    el.classList.remove("hidden");
+  } else {
+    el.classList.add("hidden");
+    el.value="";
+    el.classList.remove("invalid-field"); // 如果隐藏了，顺便移除红框
+  }
   document.getElementById(lblNo).classList.toggle("selected",val==="No");
   document.getElementById(lblYes).classList.toggle("selected",val==="Yes");
 }
@@ -476,7 +492,7 @@ function setRadio(name,value,lblNo,lblYes,detailId,detailVal){
   document.getElementById(lblYes).classList.toggle("selected",cleanVal==="Yes");
   const el=document.getElementById(detailId);
   if(cleanVal==="Yes"){el.classList.remove("hidden");el.value=detailVal||"";}
-  else{el.classList.add("hidden");el.value="";}
+  else{el.classList.add("hidden");el.value="";el.classList.remove("invalid-field");}
 }
 
 function fillReturning(d){
@@ -496,7 +512,42 @@ function fillReturning(d){
 }
 
 function getRadio(name){const r=document.querySelector(`input[name="${name}"]:checked`);return r?r.value:"No";}
-function validateFields(fields){return fields.every(id=>document.getElementById(id).value.trim()!=="");}
+
+// 🔥 核心升级：验证未填项并精准上红框
+function validateFormAndHighlight(prefix) {
+  let isValid = true;
+  const isNew = prefix === "f";
+  
+  // 1. 检查基础必填文本框
+  const requiredIds = [prefix+"Name", prefix+"Company", prefix+"Contact", prefix+"EmergencyName", prefix+"EmergencyContact", prefix+"Host", prefix+"Department"];
+  
+  requiredIds.forEach(id => {
+    const input = document.getElementById(id);
+    if (!input.value.trim()) {
+      input.classList.add("invalid-field");
+      isValid = false;
+    } else {
+      input.classList.remove("invalid-field");
+    }
+  });
+
+  // 2. 检查健康声明（如果选了 Yes，对应的输入框就是必填）
+  const healthChecks = isNew ? ["pandemic", "medication", "allergy", "smoke"] : ["rpandemic", "rmedication", "rallergy", "rsmoke"];
+  healthChecks.forEach(name => {
+    const radioVal = getRadio(name);
+    const detailInput = document.getElementById(name + "Detail");
+    if (radioVal === "Yes") {
+      if (!detailInput.value.trim()) {
+        detailInput.classList.add("invalid-field");
+        isValid = false;
+      } else {
+        detailInput.classList.remove("invalid-field");
+      }
+    }
+  });
+
+  return isValid;
+}
 
 function buildPayload(prefix,timeIn){
   const isNew=prefix==="f";
@@ -528,8 +579,13 @@ function buildPayload(prefix,timeIn){
 }
 
 function submitNew(){
-  const required=["fName","fCompany","fContact","fEmergencyName","fEmergencyContact","fHost","fDepartment"];
-  if(!validateFields(required)){document.getElementById("formError").style.display="block";return;}
+  if(!validateFormAndHighlight("f")){
+    document.getElementById("formError").style.display="block";
+    // 自动平滑滚动到第一个错误的框
+    const firstError = document.querySelector(".invalid-field");
+    if(firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
   document.getElementById("formError").style.display="none";
   
   const btn = document.getElementById("btnSubmitNew");
@@ -557,8 +613,12 @@ function submitNew(){
 }
 
 function submitReturn(action){
-  const required=["rName","rCompany","rContact","rEmergencyName","rEmergencyContact","rHost","rDepartment"];
-  if(!validateFields(required)){document.getElementById("returnError").style.display="block";return;}
+  if(!validateFormAndHighlight("r")){
+    document.getElementById("returnError").style.display="block";
+    const firstError = document.querySelector(".invalid-field");
+    if(firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
   document.getElementById("returnError").style.display="none";
   
   const btnIn = document.getElementById("btnTimeIn");
@@ -593,6 +653,11 @@ function resetAll(){
   document.getElementById("checkVideo").checked=false;
   document.getElementById("checkPDF").checked=false;
   document.getElementById("proceedBtn").disabled=true;
+  
+  // 清除所有红框样式
+  document.querySelectorAll(".invalid-field").forEach(el => el.classList.remove("invalid-field"));
+  document.getElementById("formError").style.display="none";
+  document.getElementById("returnError").style.display="none";
   
   ["fName","fCompany","fContact","fEmergencyName","fEmergencyContact","fHost","fDepartment","pandemicDetail","medicationDetail","allergyDetail","smokeDetail","prop1","prop1sn","prop2","prop2sn","prop3","prop3sn"].forEach(id => {
      document.getElementById(id).value = "";
